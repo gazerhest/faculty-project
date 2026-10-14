@@ -1,0 +1,51 @@
+{% extends 'faculty/base.html' %}
+
+{% block title %}Кафедри / Факультет гуманітарних наук НаУКМА{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <span class="section-tag">Академічна структура</span>
+    <h1>Кафедри факультету</h1>
+    <p>Кафедри забезпечують викладання фундаментальних дисциплін та курують освітні програми</p>
+</div>
+
+<div class="departments-grid">
+    {% for department in departments %}
+        <div class="department-card">
+            <h2 class="department-title">
+                <a href="{% url 'faculty:department_detail' department.id %}">{{ department.name }}</a>
+            </h2>
+
+            <div class="head-info-box">
+                <span class="head-label">Завідувач кафедри:</span>
+                <strong>{{ department.boss }}</strong>
+            </div>
+
+            <div class="grad-programs-section">
+                <h4>Випускова кафедра для спеціальностей:</h4>
+                <ul class="grad-programs-list">
+                    {% for program in department.programs.all %}
+                        <li>
+                            <a href="{% url 'faculty:program_detail' program.id %}">
+                                <strong>{{ program.code }}</strong> {{ program.name }}
+                            </a>
+                        </li>
+                    {% empty %}
+                        <li class="empty-note">Кафедра є загальноуніверситетською і забезпечує базові дисципліни.</li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <div class="department-card-footer">
+                <a href="{% url 'faculty:department_detail' department.id %}" class="btn-link">
+                    Склад викладачів кафедри ->
+                </a>
+            </div>
+        </div>
+    {% empty %}
+        <div class="empty-state">
+            <p>Any department was not found.</p>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

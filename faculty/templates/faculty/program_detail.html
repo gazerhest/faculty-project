@@ -1,0 +1,62 @@
+{% extends 'faculty/base.html' %}
+
+{% block title %}{{ program.name }} / Спеціальність ФГН{% endblock %}
+
+{% block content %}
+<div class="detail-container">
+    <a href="{% url 'faculty:programs_list' %}" class="back-link"><- Назад до всіх спеціальностей</a>
+
+    <div class="detail-card">
+        <div class="detail-card-header">
+            <span class="code-badge-lg">Спеціальність {{ program.code }}</span>
+            <h1 class="detail-title">{{ program.name }}</h1>
+            <p class="detail-subhead">
+                Випускова кафедра:
+                <a href="{% url 'faculty:department_detail' program.department.id %}" class="dep-link">
+                    <strong>{{ program.department.name }}</strong>
+                </a>
+            </p>
+        </div>
+
+        <div class="detail-body">
+            <section class="detail-section">
+                <h2>Про спеціальність</h2>
+                <div class="full-description">
+                    {{ program.description|linebreaks }}
+                </div>
+            </section>
+
+            <hr class="divider">
+
+            <section class="detail-section">
+                <h2>Навчальні дисципліни</h2>
+                <p class="section-subtext">Ключові фахові предмети, які опановують студенти програми:</p>
+
+                <div class="disciplines-tags">
+                    {% for discipline in disciplines_list %}
+                        <span class="discipline-tag">- {{ discipline }}</span>
+                    {% empty %}
+                        <p>The list of subjects is currently being drawn up.</p>
+                    {% endfor %}
+                </div>
+            </section>
+
+            <hr class="divider">
+
+            <section class="coordinator-card">
+                <h3>Координатор набору та консультації для вступників</h3>
+                <div class="coordinator-detail-grid">
+                    <div>
+                        <span class="coord-label">Відповідальна особа:</span>
+                        <strong>{{ program.coordinator_name }}</strong>
+                    </div>
+                    <div>
+                        <span class="coord-label">Контакти для зв'язку:</span>
+                        <span>{{ program.coordinator_contact }}</span>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+{% endblock %}

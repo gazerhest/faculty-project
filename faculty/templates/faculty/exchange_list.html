@@ -1,0 +1,44 @@
+{% extends 'faculty/base.html' %}
+
+{% block title %}Академічна мобільність / ФГН НаУКМА{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <span class="section-tag">Міжнародна співпраця</span>
+    <h1>Програми академічного обміну</h1>
+    <p>Навчання та наукове стажування у провідних партнерських університетах Європи</p>
+</div>
+
+<div class="exchange-grid">
+    {% for program in programs %}
+        <div class="exchange-card">
+            <div class="exchange-card-header">
+                <div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 10px;">
+                    <h2 class="exchange-title" style="margin-bottom: 0;">{{ program.university_name }}</h2>
+                    <span class="country-badge">{{ program.country }}</span>
+                </div>
+            </div>
+
+            <div class="exchange-badges">
+                {% if program.is_open %}
+                    <span class="status-badge status-open">Прийом триває</span>
+                {% else %}
+                    <span class="status-badge status-closed">Прийом завершено</span>
+                {% endif %}
+
+                <p class="info-pill">Мови: {{ program.languages }}</p>
+                <p class="info-pill">Місця: {{ program.slots }}</p>
+                <p class="info-pill deadline-pill">Дедлайн: {{ program.deadline|date:"d.m.Y" }}</p>
+            </div>
+
+            <div class="exchange-description">
+                <p>{{ program.description }}</p>
+            </div>
+        </div>
+    {% empty %}
+        <div class="empty-state">
+            <p>Наразі відкритих програм обміну немає.</p>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

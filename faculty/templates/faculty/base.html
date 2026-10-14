@@ -1,0 +1,49 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Факультет гуманітарних наук / НаУКМА{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'faculty/css/style.css' %}">
+</head>
+<body class="site-body">
+
+    <!-- header + navbar -->
+    <header class="site-header">
+        <div class="nav-container">
+            <a href="{% url 'faculty:index' %}" class="brand-logo">
+                <span class="logo-badge">ФГН</span>
+                <div class="logo-text">
+                    <strong>Факультет гуманітарних наук</strong>
+                    <small>Національний університет «Києво-Могилянська академія»</small>
+                </div>
+            </a>
+
+            <nav class="site-nav">
+                <a href="{% url 'faculty:index' %}" class="nav-link">Головна</a>
+                <a href="{% url 'faculty:programs_list' %}" class="nav-link">Спеціальності</a>
+                <a href="{% url 'faculty:departments_list' %}" class="nav-link">Кафедри</a>
+                <a href="{% url 'faculty:exchange_list' %}" class="nav-link">Програми обміну</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- main content -->
+    <main class="main-content">
+        <div class="container">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </main>
+
+    <!-- footer -->
+    <footer class="site-footer">
+        <div class="container footer-content">
+            <p>© 2024–2026 Факультет гуманітарних наук НаУКМА. Усі права захищено.</p>
+            <p class="footer-note">м. Київ, вул. Волоська 8/5, корпус 1</p>
+        </div>
+    </footer>
+
+</body>
+</html>
