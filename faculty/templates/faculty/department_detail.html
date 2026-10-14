@@ -1,0 +1,62 @@
+{% extends 'faculty/base.html' %}
+
+{% block title %}{{ department.name }} / ФГН НаУКМА{% endblock %}
+
+{% block content %}
+<div class="detail-container">
+    <a href="{% url 'faculty:departments_list' %}" class="back-link"><- Назад до списку кафедр</a>
+
+    <div class="detail-card">
+        <div class="detail-card-header">
+            <span class="section-tag">Кафедра ФГН</span>
+            <h1 class="detail-title">{{ department.name }}</h1>
+            <p class="detail-subhead">
+                Завідувач кафедри: <strong>{{ department.boss }}</strong>
+            </p>
+        </div>
+
+        <div class="detail-body">
+            <section class="detail-section">
+                <h2>Освітні програми кафедри 🎓</h2>
+                <div class="dep-programs-wrap">
+                    {% for program in department.programs.all %}
+                        <div class="dep-program-pill">
+                            <span>Код {{ program.code }}</span>
+                            <a href="{% url 'faculty:program_detail' program.id %}">
+                                <strong>{{ program.name }}</strong>
+                            </a>
+                        </div>
+                    {% empty %}
+                        <p class="empty-note">Кафедра забезпечує загальнофакультетську підготовку.</p>
+                    {% endfor %}
+                </div>
+            </section>
+
+            <hr class="divider">
+
+            <section class="detail-section">
+                <div class="teachers-header-row">
+                    <h2>Науково-педагогічний склад</h2>
+                    <span class="count-badge">{{ department.teachers.all|length }} викладачів</span>
+                </div>
+                <p class="section-subtext">Професори, доценти та викладачі, які забезпечують навчальний процес:</p>
+
+                <div class="teachers-grid">
+                    {% for teacher in department.teachers.all %}
+                        <div class="teacher-card">
+                            <div class="teacher-avatar">👤</div>
+                            <div class="teacher-info">
+                                <h3 class="teacher-name">{{ teacher.name }}</h3>
+                                <div class="teacher-position">{{ teacher.position }}</div>
+                                <div class="teacher-degree">{{ teacher.degree }}</div>
+                            </div>
+                        </div>
+                    {% empty %}
+                        <p>Список викладачів кафедри оновлюється.</p>
+                    {% endfor %}
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+{% endblock %}

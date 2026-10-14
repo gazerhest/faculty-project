@@ -1,0 +1,42 @@
+{% extends 'faculty/base.html' %}
+
+{% block title %}Освітні програми / Факультет гуманітарних наук{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <span class="section-tag">Бакалаврські програми</span>
+    <h1>Спеціальності факультету</h1>
+    <p>Оберіть напрям навчання для ознайомлення з навчальним планом та контактами координатора</p>
+</div>
+
+<div class="programs-grid">
+    {% for program in programs %}
+        <div class="program-card">
+            <div class="program-card-header">
+                <span class="code-badge">Код<br>{{ program.code }}</span>
+                <span class="department-meta">Кафедра: {{ program.department.name }}</span>
+            </div>
+
+            <h2 class="program-title">
+                <a href="{% url 'faculty:program_detail' program.id %}">{{ program.name }}</a>
+            </h2>
+
+            <p class="program-description">{{ program.short_description }}</p>
+
+            <div class="coordinator-box">
+                <span class="coord-label">Координатор набору:</span>
+                <strong>{{ program.coordinator_name }}</strong>
+                <span class="coord-contact">{{ program.coordinator_contact }}</span>
+            </div>
+
+            <div class="program-card-footer">
+                <a href="{% url 'faculty:program_detail' program.id %}" class="btn-link">Детальніше про програму -></a>
+            </div>
+        </div>
+    {% empty %}
+        <div class="empty-state">
+            <p>Subjects were not found.</p>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

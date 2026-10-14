@@ -1,0 +1,67 @@
+{% extends 'faculty/base.html' %}
+
+{% block title %}Головна / Факультет гуманітарних наук НаУКМА{% endblock %}
+
+{% block content %}
+
+{% if faculty_info %}
+    <section class="hero-card">
+        <span class="section-tag">Про факультет</span>
+        <h1 class="hero-title">{{ faculty_info.title }}</h1>
+        <div class="hero-description">
+            {{ faculty_info.description|linebreaks }}
+        </div>
+    </section>
+
+    <section class="contacts-section">
+        <div class="section-header">
+            <h2>Деканат та контакти 🏛️</h2>
+            <p>Офіційна інформація для зв'язку з адміністрацією факультету</p>
+        </div>
+
+        <div class="contacts-grid">
+            <div class="contact-card">
+                <h3>Керівництво</h3>
+                <div class="contact-item">
+                    <span class="label">Декан:</span>
+                    <strong>{{ faculty_info.dean }}</strong>
+                </div>
+                <div class="contact-item">
+                    <span class="label">Заступник декана:</span>
+                    <strong>{{ faculty_info.vice_dean }}</strong>
+                </div>
+            </div>
+
+            <div class="contact-card">
+                <h3>Локація та години прийому</h3>
+                <div class="contact-item">
+                    <span class="label">Адреса:</span>
+                    <span>{{ faculty_info.address }}</span>
+                </div>
+                <div class="contact-item">
+                    <span class="label">Офісні години:</span>
+                    <span>{{ faculty_info.office_hours }}</span>
+                </div>
+            </div>
+
+            <div class="contact-card">
+                <h3>Зв'язок</h3>
+                <div class="contact-item">
+                    <span class="label">Телефон:</span>
+                    <span><a href="tel:{{ faculty_info.phone }}">{{ faculty_info.phone }}</a></span>
+                </div>
+                <div class="contact-item">
+                    <span class="label">Email:</span>
+                    <span><a href="mailto:{{ faculty_info.email }}">{{ faculty_info.email }}</a></span>
+                </div>
+            </div>
+        </div>
+    </section>
+{% else %}
+    <div class="empty-state">
+        <h2>Info about faculty doesn't filled yet.</h2>
+        <p>Please run the database populate script or add a record via the admin panel.</p>
+    </div>
+{% endif %}
+
+{% endblock %}
